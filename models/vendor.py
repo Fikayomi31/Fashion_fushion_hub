@@ -5,8 +5,8 @@ from models.base_model import BaseModel
 
 class Vendor(BaseModel):
     """Vendor class representation"""
-    vendor_shop_name: str = ""
-    vendor_address: str = ""
+    vendor_name: str = ""
+    address: str = ""
     email: str = ""
     phone: str = ""
     password: str = ""

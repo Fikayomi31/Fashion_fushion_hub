@@ -8,16 +8,14 @@ class Product(BaseModel):
     Attributes:
         vendor_id(str) - the vendor id
         catetory_id(str) - the cateory id
-        name(str) - the product name
-        color(str) - the product color
-        price(str) - the product price
-        stock_quantity(str) - the product quantity
+        product_name(str) - the product name
+        price (float) - the product price
+        stock_quantity (int) - the product quantity
         text(str) - the text for the product
     """
     vendor_id = ""
     category_id = ""
-    name = ""
-    color = ""
-    pricr = ""
-    stock_quantity = ""
+    product_name = ""
+    price = 0.0
+    stock_quantity = 0
     text = ""
