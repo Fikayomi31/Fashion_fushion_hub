@@ -22,7 +22,7 @@ class TestCategoryDocs(unittest.TestCase):
     def test_pycodestyle_conformance(self):
         """Test that categoryl conforms with pep8"""
         for path in ['models/category.py',
-                     'tests/test_category.py']:
+                     'tests/test_models/test_category.py']:
             with self.subTest(path=path):
                 errors = pycodestyle.Checker(path).check_all()
                 self.assertEqual(errors, 0)

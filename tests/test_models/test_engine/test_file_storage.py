@@ -25,12 +25,12 @@ class TestBaseModelDocs(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """set up docstring tests"""
-        cls.user_f = inspect.getmembers(User, inspect.isfunction)
+        cls.filestorage_f = inspect.getmembers(FileStorage, inspect.isfunction)
 
     def test_pycodestyle_conformance(self):
         """Test that file_storage conforms with pep8"""
         for path in ['models/engine/file_storage.py',
-                     'tests/test_file_storage.py']:
+                     'tests/test_models/test_engine/test_file_storage.py']:
             with self.subTest(path=path):
                 errors = pycodestyle.Checker(path).check_all()
                 self.assertEqual(errors, 0)

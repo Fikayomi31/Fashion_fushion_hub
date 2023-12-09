@@ -22,7 +22,7 @@ class TestBaseModelDocs(unittest.TestCase):
     def test_pycodestyle_conformance(self):
         """Test that product conforms with pep8"""
         for path in ['models/product.py',
-                     'tests/test_product.py']:
+                     'tests/test_models/test_product.py']:
             with self.subTest(path=path):
                 errors = pycodestyle.Checker(path).check_all()
                 self.assertEqual(errors, 0)
