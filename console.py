@@ -11,9 +11,10 @@ from models.product import Product
 from models.order import Order
 from models.order_item import OrderItem
 from models.review import Review
-import shlex #for splitting line along spaces execpt double quotes
+import shlex
 
-classes = { "BaseModel": BaseModel,
+classes = {
+        "BaseModel": BaseModel,
         "User": User,
         "Vendor": Vendor,
         "Category": Category,
@@ -53,10 +54,10 @@ class FFHCommand(cmd.Cmd):
                 else:
                     try:
                         value = int(value)
-                    except:
+                    except Exception:
                         try:
                             value = float(value)
-                        except:
+                        except Exception:
                             continue
                 new_dict[key] = value
         return new_dict
@@ -130,41 +131,78 @@ class FFHCommand(cmd.Cmd):
         print("]")
 
     def do_update(self, arg):
-       """Update instance based on class name, id"""
-       args = shlex.split(arg)
-       integer = ["stock_quantity", "quantity"]
-       floats = ["subtotal", "total_amount", "price"]
-       if len(args) == 0:
-           print("** class name missing **")
-       elif args[0] in classes:
-           if len(args) > 1:
-               k = args[0] + "." + args[1]
-               if k in models.storage.all():
-                   if len(args) > 2:
-                       if len(args) > 3:
-                           if args[0] == "Product":
-                               if args[2] in integee:
-                                   try:
-                                       args[3] = int(args[3])
-                                   except:
-                                        args[3] = 0 
-                               elif args[2] in floats:
-                                   try:
+        """Update an instance based on the class name, id, attribute & value"""
+        args = shlex.split(arg)
+        integers = ["number_rooms", "number_bathrooms", "max_guest",
+                    "price_by_night"]
+        floats = ["latitude", "longitude"]
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] in classes:
+            if len(args) > 1:
+                k = args[0] + "." + args[1]
+                if k in models.storage.all():
+                    if len(args) > 2:
+                        if len(args) > 3:
+                            if args[0] == "Place":
+                                if args[2] in integers:
+                                    try:
+                                        args[3] = int(args[3])
+                                    except Exception:
+                                        args[3] = 0
+                                elif args[2] in floats:
+                                    try:
                                         args[3] = float(args[3])
-                                   except:
+                                    except Exception:
                                         args[3] = 0.0
-                           setattr(models.storage.all()[k], args[2], args[3])
-                           models.storage.all()[k].save()
-                       else:
+                            setattr(models.storage.all()[k], args[2], args[3])
+                            models.storage.all()[k].save()
+                        else:
                             print("** value missing **")
-                   else:
+                    else:
                         print("** attribute name missing **")
-               else:
+                else:
                     print("** no instance found **")
-           else:
+            else:
                 print("** instance id missing **")
-       else:
+        else:
             print("** class doesn't exist **")
+
+    def do_count(self, arg):
+        """count the number of instance"""
+        objs = models.storage.all()
+        if arg in classes:
+            obj_list = [obj.to_dict for obj in objs.values()
+                        if obj.to_dict().get("__class__") == arg]
+            print(len(obj_list))
+
+    def default(self, arg):
+        """Default command overwrite
+        """
+        args = arg.split(".")
+        class_name = args[0]
+        commands = {
+                "all": self.do_all,
+                "count": self.do_count,
+                "show": self.do_show,
+                "destory": self.do_destory,
+                "update": self.do_update,
+                "create": self.do_create
+                }
+        command_arg = args[1].replace('(', ' ')\
+                             .replace(',', '').replace(')', ' ')\
+                             .split()
+        command = command_arg[0]
+        if command in commands:
+            if command in ["all", "count", "create"]:
+                commands[command](class_name)
+            elif command in ["show", "destory"]:
+                commands[command](class_name + " " + command_arg[1])
+            elif command in ["update"]:
+                commands[command](class_name + " " + command_arg[1]
+                                  + " " + command_arg[2] + " "
+                                  + command_arg[3])
+
 
 if __name__ == "__main__":
     FFHCommand().cmdloop()
