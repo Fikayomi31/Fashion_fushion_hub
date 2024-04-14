@@ -4,7 +4,7 @@ from datetime import datetime
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 from models.user import User
-from models.vendor import Vendor
+from models.brand import Vendor
 from models.category import Category
 from models.product import Product
 from models.order import Order

@@ -4,7 +4,7 @@ Contains the FileStorage class
 """
 
 import json
-from models.vendor import Vendor
+from models.brand import Vendor
 from models.base_model import BaseModel
 from models.category import Category
 from models.product import Product

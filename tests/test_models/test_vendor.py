@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Defining the test case for user class"""
 
-from models.vendor import (Vendor, BaseModel)
+from models.brand import (Vendor, BaseModel)
 import unittest
 import pycodestyle
 import time
