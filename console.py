@@ -5,7 +5,7 @@ from datetime import datetime
 import models
 from models.base_model import BaseModel
 from models.user import User
-from models.brand import Vendor
+from models.brand import Brand
 from models.category import Category
 from models.product import Product
 from models.order import Order
@@ -16,7 +16,7 @@ import shlex
 classes = {
         "BaseModel": BaseModel,
         "User": User,
-        "Vendor": Vendor,
+        "Brand": Brand,
         "Category": Category,
         "Product": Product,
         "Order": Order,

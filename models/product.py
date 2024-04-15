@@ -13,7 +13,7 @@ class Product(BaseModel):
         stock_quantity (int) - the product quantity
         text(str) - the text for the product
     """
-    vendor_id = ""
+    Brand_id = ""
     category_id = ""
     product_name = ""
     price = 0.0

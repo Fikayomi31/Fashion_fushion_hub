@@ -13,6 +13,7 @@ class OrderItem(BaseModel):
         subtotal (float) - the subtotal of the item
     """
     user_id = ""
+    brand_id = ""
     order_id = ""
     quantity = 0
     product_id = []

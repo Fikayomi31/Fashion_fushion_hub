@@ -3,7 +3,7 @@
 from models.base_model import BaseModel
 
 
-class Vendor(BaseModel):
+class Brand(BaseModel):
     """Vendor class representation"""
     brand_name = ""
     

@@ -4,7 +4,7 @@ Contains the FileStorage class
 """
 
 import json
-from models.brand import Vendor
+from models.brand import Brand
 from models.base_model import BaseModel
 from models.category import Category
 from models.product import Product
@@ -14,7 +14,7 @@ from models.order_item import OrderItem
 from models.user import User
 
 classes = {"BaseModel": BaseModel,
-           "Vendor": Vendor,
+           "Brand": Brand,
            "Category": Category,
            "Product": Product,
            "User": User,
