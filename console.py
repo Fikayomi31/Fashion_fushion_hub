@@ -67,7 +67,7 @@ class FFHCommand(cmd.Cmd):
         args = arg.split()
         if len(args) == 0:
             print("** class name missing **")
-            return False
+            return
         if args[0] in classes:
             new_dict = self._key_value_parser(args[1:])
             instance = classes[args[0]](**new_dict)
