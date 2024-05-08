@@ -3,6 +3,7 @@
 import uuid
 from datetime import datetime
 import models
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, Datetime
 
 Base = declarative_base()
@@ -25,7 +26,7 @@ class BaseModel:
             **kwargs: a key pair valje of dict created
         """
         date_format = "%Y-%m-%dT%H:%M:%S.%f"
-        if kwargs::wq
+        if kwargs:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
                     value = datetime.strptime(value, date_format)
@@ -44,8 +45,9 @@ class BaseModel:
 
     def save(self):
         """Update current time"""
+        from models import storage
         self.updated_at = datetime.now()
-        storage.new()
+        storage.new(self)
         models.storage.save()
 
     def to_dict(self):
@@ -55,7 +57,7 @@ class BaseModel:
         new_dict["created_at"] = self.created_at.isoformat()
         new_dict["updated_at"] = self.updated_at.isoformat()
         if '_sa_instance_state' in new_dict:
-            del new['_sa_instance_state']
+            del new_dict['_sa_instance_state']
         return new_dict
 
     def delete(self):

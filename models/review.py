@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 """Defining the review class"""
 from models.base_model import BaseModel
+from sqlalchemy import Column, String, ForeignKey, Date, Integer
+from os import getenv
+
+storage_type = getenv('FFH_TYPE_STORAGE')
 
 
 class Review(BaseModel):
@@ -11,6 +15,15 @@ class Review(BaseModel):
         text (str) - comment text
 
     """
-    user_id = ""
-    product_id = ""
-    text = ""
+    if storage_type == 'db':
+        user_id = Column(String(60), ForeignKey('user.id'), nullable=False)
+        product_id = Column(String(60), ForeignKey('product.id'), nullable=False)
+        comment = Column(String(1024))
+        review_date = Column(Date)
+        rating = Column(Integer)
+    else:
+        user_id = ""
+        product_id = ""
+        comment = ""
+        review_date = ""
+        rating = ""
